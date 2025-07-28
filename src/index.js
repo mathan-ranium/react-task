@@ -3,17 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { BrowserRouter } from 'react-router-dom';
-import userReducer from './features/users/userSlice';
-import authReducer from './features/auth/authSlice'; // ✅ Import auth slice
 
-const store = configureStore({
-  reducer: {
-    users: userReducer,
-    auth: authReducer, // ✅ Add auth to store
-  },
-});
+import { BrowserRouter } from 'react-router-dom';
+import { store } from './store';
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

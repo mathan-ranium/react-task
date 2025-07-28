@@ -1,31 +1,37 @@
-// App.jsx
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Users from './pages/Users';
-import CreateUser from './pages/CreateUser';
-import EditUser from './pages/EditUser';
 import NotFound from './pages/NotFound';
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const token = localStorage.getItem('token');
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      
-      {token ? (
-        <>
-          <Route path="/users" element={<Users />} />
-          <Route path="/create" element={<CreateUser />} />
-          <Route path="/edit/:id" element={<EditUser />} />
-        </>
-      ) : (
-        <Route path="*" element={<Navigate to="/login" />} />
-      )}
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
+      <Routes>
+        <Route
+          path="/login"
+          element={token ? <Navigate to="/users" /> : <Login />}
+        />
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        {/* Protected Routes */}
+        {token ? (
+          <>
+            <Route path="/users" element={<Users />} />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/login" />} />
+        )}
+
+        {/* Catch-all if token exists and route doesn't match */}
+        {token && <Route path="*" element={<NotFound />} />}
+      </Routes>
+    </>
+   
   );
 }
 

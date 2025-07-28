@@ -17,6 +17,7 @@ const Login = () => {
         e.preventDefault();
         console.log(form)
         dispatch(loginUser(form, navigate));
+        navigate("/users");
     };
 
     return (
